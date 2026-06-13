@@ -1,28 +1,74 @@
 import pytest
-# TODO: add necessary import
+import pandas as pd
+from ml.data import process_data
+from ml.model import train_model, inference, compute_model_metrics
 
-# TODO: implement the first test. Change the function name and input as needed
-def test_one():
+def test_compute_model_metrics():
     """
-    # add description for the first test
+    Test that compute_model_metrics returns precision, recall,
+    and F1 scores between 0 and 1.
     """
-    # Your code here
-    pass
+    y = [1, 0, 1, 1]
+    preds = [1, 0, 1, 0]
+
+    p, r, fbeta = compute_model_metrics(y, preds)
+
+    assert 0 <= p <= 1
+    assert 0 <= r <= 1
+    assert 0 <= fbeta <= 1
 
 
-# TODO: implement the second test. Change the function name and input as needed
-def test_two():
+def test_inference():
     """
-    # add description for the second test
+    Test that inference returns one prediction for each input row.
     """
-    # Your code here
-    pass
+    X_train = [[0, 1], [1, 0], [1, 1], [0, 0]]
+    y_train = [1, 0, 1, 0]
+
+    model = train_model(X_train, y_train)
+    preds = inference(model, X_train)
+
+    assert len(preds) == len(y_train)
 
 
-# TODO: implement the third test. Change the function name and input as needed
-def test_three():
+def test_process_data():
     """
-    # add description for the third test
+    Test that process_data returns features and labels
+    with the same number of rows.
     """
-    # Your code here
-    pass
+    data = pd.DataFrame(
+        {
+            "age": [25, 45, 30],
+            "workclass": ["Private", "Self-emp", "Private"],
+            "education": ["Bachelors", "HS-grad", "Masters"],
+            "marital-status": ["Never-married", "Married", "Divorced"],
+            "occupation": ["Tech-support", "Exec-managerial", "Sales"],
+            "relationship": ["Not-in-family", "Husband", "Unmarried"],
+            "race": ["White", "Black", "Asian-Pac-Islander"],
+            "sex": ["Male", "Female", "Female"],
+            "native-country": ["United-States", "United-States", "India"],
+            "salary": [">50K", "<=50K", ">50K"],
+        }
+    )
+
+    cat_features = [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
+    ]
+
+    X, y, encoder, lb = process_data(
+        data,
+        categorical_features=cat_features,
+        label="salary",
+        training=True
+    )
+
+    assert X.shape[0] == len(y)
+    assert encoder is not None
+    assert lb is not None
