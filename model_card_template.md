@@ -3,7 +3,7 @@
 For additional information see the Model Card paper: https://arxiv.org/pdf/1810.03993.pdf
 
 ## Model Details
-This model is a machine learning classifier trained to predict whether an individual's income exceeds $50,000 per year based on census data. The model was trained using the Adult Census Income dataset and a machine learning pipeline that includes categorical feature encoding and label binarization. 
+The model used for training is a Random Forest Classifier from scikit-learn. It is trained to predict whether an individual's income exceeds $50,000 per year based on census data. The model was trained using the Adult Census Income dataset and a machine learning pipeline that includes categorical feature encoding and label binarization. 
 
 ## Intended Use
 This model is intended for educational purposes as part of the Udacity Machine Learning DevOps project. Its purpose is to demonstrate how to train, evaluate, save, and deploy a machine learning model using a reproducible pipeline.
