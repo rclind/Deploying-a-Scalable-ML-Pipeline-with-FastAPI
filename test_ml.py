@@ -1,7 +1,8 @@
-import pytest
 import pandas as pd
+
 from ml.data import process_data
-from ml.model import train_model, inference, compute_model_metrics
+from ml.model import compute_model_metrics, inference, train_model
+
 
 def test_compute_model_metrics():
     """
@@ -66,7 +67,7 @@ def test_process_data():
         data,
         categorical_features=cat_features,
         label="salary",
-        training=True
+        training=True,
     )
 
     assert X.shape[0] == len(y)
