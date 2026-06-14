@@ -84,3 +84,4 @@ for col in cat_features:
                 f"Precision: {p:.4f} | Recall: {r:.4f} | F1: {fb:.4f}",
                 file=f,
             )
+            
